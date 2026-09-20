@@ -1,0 +1,18 @@
+Задача: 
+Написать программу для нахождения файлов-дубликатов (имеющих 1 или более копий содержимого) по заданному пути (и подкаталогам).
+
+Команды:
+
+./findEqualFiles folderFor7task
+
+Код findEqualFiles файла:
+
+#!/bin/bash
+dir="${1:-.}"
+
+find "$dir" -type f -exec md5sum {} + | sort | uniq -w32 -D
+
+Итог:
+
+f99ad433cc7766ad9af31b6f8308df9f  folderFor7task/folderFor7task1/here2.txt
+f99ad433cc7766ad9af31b6f8308df9f  folderFor7task/here.txt

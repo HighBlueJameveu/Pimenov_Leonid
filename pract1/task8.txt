@@ -1,0 +1,30 @@
+Задача: 
+Написать программу для нахождения файлов-дубликатов (имеющих 1 или более копий содержимого) по заданному пути (и подкаталогам).
+
+Команды:
+
+./packFiles folderFor8task .py
+./packFiles folderFor8task .c
+tar -tf archive.tar
+
+Код packFiles файла:
+
+#!/bin/bash
+
+dir="${1:-.}"
+ext="${2:-py}"
+
+out="archive.tar"
+
+case "$ext" in
+    .*) ;;
+    *) ext=".$ext" ;;
+esac
+
+find "$dir" -type f -name "*$ext" -print0 | tar --null -cf "$out" -T -
+
+echo "$out"
+
+Итог:
+
+Создается файл archive.tar содержащий файлы одного введенного расширения
