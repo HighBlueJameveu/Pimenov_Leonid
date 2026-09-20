@@ -1,0 +1,33 @@
+Задача: 
+Написать программу banner средствами bash для вывода текстов, как в следующем примере (размер баннера должен меняться!):
+
+Команды:
+
+./banner "AAAAAA"
+
+Код bash файла:
+
+#!/bin/bash
+
+input=$1
+len=${#input}
+
+printf '+'
+for((i=0; i<len+2; i++))do
+    printf '-'
+done
+printf '+\n'
+
+echo "| $input |"
+
+printf '+'
+for((i=0; i<len+2; i++))do
+    printf '-'
+done
+printf '+\n'
+
+Итог:
+
++--------+
+| AAAAAA |
++--------+

@@ -1,0 +1,22 @@
+Задача: 
+Написать программу для вывода всех идентификаторов (по правилам C/C++ или Java) в файле (без повторений).
+
+Команды:
+
+grep -oE '[A-Za-z_][A-Za-z0-9_]*' codefor4task.c | sort -u | tr '\n' ' '; echo
+
+Код .c файла:
+
+#include <stdio.h>
+
+int main(){
+    char buf[20];
+    for(int i=0; i<20; i++){
+        buf[i]=(char)i;
+    }
+    return 0;
+}
+
+Итог:
+
+buf char for h i include int main return stdio
