@@ -1,0 +1,273 @@
+Задача 1
+Команды:
+
+grep -o '^[^:]*' passwd | sort
+
+Итог:
+_apt
+_chrony
+backup
+bin
+daemon
+dhcpcd
+dnsmasq
+dottedllu
+games
+irc
+landscape
+list
+lp
+mail
+man
+messagebus
+news
+nobody
+polkitd
+proxy
+root
+sync
+sys
+syslog
+systemd-network
+systemd-resolve
+uucp
+www-data
+
+
+
+Задача 2
+Команды:
+grep -v '^#' protocols | awk 'NF {print $2, $1}' | sort -rn | head -5
+
+Результат:
+262 mptcp
+143 ethernet
+142 rohc
+141 wesp
+140 shim6
+
+
+
+Задача 3
+Команды:
+
+./banner "AAAAAA"
+
+Код bash файла:
+
+#!/bin/bash
+
+input=$1
+len=${#input}
+
+printf '+'
+for((i=0; i<len+2; i++))do
+    printf '-'
+done
+printf '+\n'
+
+echo "| $input |"
+
+printf '+'
+for((i=0; i<len+2; i++))do
+    printf '-'
+done
+printf '+\n'
+
+Итог:
+
++--------+
+| AAAAAA |
++--------+
+
+
+
+Задача 4
+Команды:
+
+grep -oE '[A-Za-z_][A-Za-z0-9_]*' codefor4task.c | sort -u | tr '\n' ' '; echo
+
+Код .c файла:
+
+#include <stdio.h>
+
+int main(){
+    char buf[20];
+    for(int i=0; i<20; i++){
+        buf[i]=(char)i;
+    }
+    return 0;
+}
+
+Итог:
+
+buf char for h i include int main return stdio
+
+
+
+Задача 5
+
+./reg banner
+
+В результате для banner задаются правильные права доступа и сам banner копируется в /usr/local/bin.
+
+Команды:
+
+sudo ./reg banner
+banner "AAAAAA" 
+
+Код reg файла:
+
+#!/bin/bash
+
+file="$1"
+chmod +rwx "$file"
+cp "$file" /usr/local/bin/
+
+Итог:
+
+Файл помещен в /usr/local/bin
+
+
+
+Задача 6
+Команды:
+
+./checkComments codefor4task.c comment.c comment.py
+
+Код checkComments файла:
+
+#!/bin/bash
+
+for file in "$@"; do
+
+    case "$file" in
+        *.c|*.js|*.py) ;;
+        *) continue ;;
+    esac
+
+    first=$(head -n1 "$file")
+
+    case "$file" in
+        *.c|*.js)
+            if [[ "$first" =~ ^[[:space:]]*(//|/\*) ]]; then
+                echo "$file: Есть комментарий"
+            else
+                echo "$file: Нету комментария"
+            fi
+            ;;
+        *.py)
+            if [[ "$first" =~ ^[[:space:]]*# ]]; then
+                echo "$file: Есть комментарий"
+            else
+                echo "$file: Нету комментария"
+            fi
+            ;;
+    esac
+done
+
+Итог:
+
+codefor4task.c: Нету комментария
+comment.c: Есть комментарий
+comment.py: Есть комментарий
+
+
+
+Задача 7
+
+Команды:
+
+./findEqualFiles folderFor7task
+
+Код findEqualFiles файла:
+
+#!/bin/bash
+dir="${1:-.}"
+
+find "$dir" -type f -exec md5sum {} + | sort | uniq -w32 -D
+
+Итог:
+
+f99ad433cc7766ad9af31b6f8308df9f  folderFor7task/folderFor7task1/here2.txt
+f99ad433cc7766ad9af31b6f8308df9f  folderFor7task/here.txt
+
+
+
+Задача 8
+
+Команды:
+
+./packFiles folderFor8task .py
+./packFiles folderFor8task .c
+tar -tf archive.tar
+
+Код packFiles файла:
+
+#!/bin/bash
+
+dir="${1:-.}"
+ext="${2:-py}"
+
+out="archive.tar"
+
+case "$ext" in
+    .*) ;;
+    *) ext=".$ext" ;;
+esac
+
+find "$dir" -type f -name "*$ext" -print0 | tar --null -cf "$out" -T -
+
+echo "$out"
+
+Итог:
+
+Создается файл archive.tar содержащий файлы одного введенного расширения
+
+
+
+Задача 9
+Команды:
+
+./tabulations space.txt space_out.txt
+
+Код tabulations файла:
+
+#!/bin/bash
+
+in="${1}"   
+out="${2}"
+
+sed 's/    /\t/g' "$in" > "$out"
+
+echo "Сделано: $out"
+
+Итог:
+
+Выводится "Сделано: space_out.txt"
+В space_out.txt записывается измененный изначальный файл
+
+
+
+Задача 10
+Команды:
+
+./hollowFiles
+
+Код hollowFiles файла:
+
+#!/bin/bash
+
+dir="${1:-.}"
+
+find "$dir" -type f -empty
+
+echo "Сделано: $out"
+
+Итог:
+
+./folderFor8task/file1.c
+./folderFor8task/file1.py
+./folderFor8task/file2.py
+./folderFor8task/file1.txt
+./hollowFile.txt
