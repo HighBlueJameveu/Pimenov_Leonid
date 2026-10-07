@@ -130,6 +130,8 @@ python3 -c "import json; print('\n'.join(json.load(open('express-package.json'))
 
 dot -Tpng express-deps.dot -o express-deps.png
 ```
+![alt](pract2/express-deps.png)
+
 matplotlib
 ```bash
 unzip -p matplotlib-*.whl '*/METADATA' | grep '^Requires-Dist:' | sed 's/Requires-Dist: //; s/[<>=!;\[].*//; s/ *$//' > deps-matplotlib.txt
@@ -148,6 +150,9 @@ unzip -p matplotlib-*.whl '*/METADATA' | grep '^Requires-Dist:' | sed 's/Require
 
 dot -Tpng matplotlib-deps.dot -o matplotlib-deps.png
 ```
+![alt](pract2/matplotlib-deps.png)
+
+
 # Задание 4
 
 Код для поиска счастливого билета в MiniZinc
