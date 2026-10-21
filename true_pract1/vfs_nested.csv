@@ -1,0 +1,6 @@
+type,path,content
+dir,/,
+dir,/level1,
+dir,/level1/level2,
+dir,/level1/level2/level3,
+file,/level1/level2/level3/deep_file.txt,VGhpcyBpcyBhIGRlZXAgZmlsZSE=

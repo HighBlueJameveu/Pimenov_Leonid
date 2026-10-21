@@ -1,0 +1,7 @@
+ls
+cd /home/user
+ls
+cat hello.txt
+cat non_existent_file.txt
+unknown_command
+mkdir /tmp/newdir

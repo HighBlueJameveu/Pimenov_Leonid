@@ -1,0 +1,8 @@
+type,path,content
+dir,/,
+dir,/home,
+dir,/home/user,
+file,/home/user/hello.txt,SGVsbG8gV29ybGQh
+dir,/bin,
+file,/bin/script.sh,IyEvYmluL2Jhc2gKZWNobyAiSGVsbG8gZnJvbSBWRlMi
+dir,/tmp,
