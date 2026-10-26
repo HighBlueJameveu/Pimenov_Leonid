@@ -2,6 +2,7 @@ import sys
 import argparse
 import urllib.parse
 from pathlib import Path
+from apk_parser import get_package_dependencies
 
 try:
     import tomllib
@@ -86,7 +87,7 @@ def main() -> None:
     parser.add_argument(
         "--config", 
         default="config.toml", 
-        help="Путь к TOML-файлу конфигурации (по умолчанию: config.toml)"
+        help="Путь к TOML-файлу конфигурации"
     )
     args = parser.parse_args()
 
@@ -94,10 +95,20 @@ def main() -> None:
         config = load_config(args.config)
         validate_config(config)
         print_config(config)
-    except (FileNotFoundError, IsADirectoryError, ValueError, KeyError) as e:
-        print(f"Ошибка {e}", file=sys.stderr)
-        sys.exit(1)
 
+        print("\nПоиск зависимостей")
+        deps = get_package_dependencies(config)
+        
+        if not deps:
+            print(f"У пакета '{config['package_name']}' нет прямых зависимостей.")
+        else:
+            print(f"Прямые зависимости пакета '{config['package_name']}':")
+            for dep in deps:
+                print(f" - {dep}")
+
+    except Exception as e:
+        print(f"ОШИБКА {e}", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
