@@ -1,8 +1,9 @@
+#package_name = "A"
+#repo_url = "test_data/graph_test.txt"
+#test_mode = true
+#output_file = "test_graph.png"
 
 package_name = "curl"
-
-repo_url = "test_data/APKINDEX.tar.gz"
-
-test_mode = true
-
+repo_url = "http://dl-cdn.alpinelinux.org/alpine/v3.18/main/x86_64/APKINDEX.tar.gz"
+test_mode = false
 output_file = "dependency_graph.png"
