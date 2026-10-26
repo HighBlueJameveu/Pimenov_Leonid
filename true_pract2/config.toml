@@ -1,8 +1,8 @@
 
 package_name = "curl"
 
-repo_url = "http://dl-cdn.alpinelinux.org/alpine/v3.18/main/x86_64/APKINDEX.tar.gz"
+repo_url = "test_data/APKINDEX.tar.gz"
 
-test_mode = false
+test_mode = true
 
 output_file = "dependency_graph.png"
