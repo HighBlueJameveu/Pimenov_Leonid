@@ -1,8 +1,10 @@
 __pycache__/
 *.pyc
 .venv/
-.idea/
+venv/
 .vscode/
-test_data/
+test_data/*.tar.gz
 *.png
 *.svg
+*.pdf
+*.jpg
