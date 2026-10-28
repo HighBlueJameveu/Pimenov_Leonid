@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-python3 src/main.py --config config.toml
+python3 -m src.main --config config.toml
