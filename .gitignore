@@ -1,6 +1,11 @@
 __pycache__/
 *.pyc
 .venv/
+pract1/
+pract2/
+pract3/
+pract4/
+true_pract1/
 venv/
 .vscode/
 test_data/*.tar.gz
