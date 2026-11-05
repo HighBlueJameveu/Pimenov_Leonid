@@ -1,8 +1,12 @@
 import unittest
-from src.main import validate_package_name, validate_output_file, validate_test_mode
+from src.main import (
+    validate_package_name,
+    validate_output_file,
+    validate_test_mode,
+)
+
 
 class TestConfigValidation(unittest.TestCase):
-
     def test_valid_package_name(self):
         validate_package_name("curl")
 

@@ -13,3 +13,4 @@ test_data/*.tar.gz
 *.svg
 *.pdf
 *.jpg
+*.toml
