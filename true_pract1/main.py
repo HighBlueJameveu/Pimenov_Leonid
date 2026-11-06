@@ -142,6 +142,46 @@ def print_to_console(text):
 def update_header():
     prompt_label.config(text=f"[{username}@{hostname} {vfs.cwd}]$ ")
 
+def cmd_ls(cmd_args):
+    result = vfs.ls(cmd_args[0] if cmd_args else None)
+    if result:
+        print_to_console(result)
+    return True
+
+
+def cmd_cd(cmd_args):
+    success, msg = vfs.cd(cmd_args[0] if cmd_args else "")
+    if not success:
+        print_to_console(msg)
+        return False
+    update_header()
+    return True
+
+
+def cmd_cat(cmd_args):
+    success, msg = vfs.cat(cmd_args[0] if cmd_args else None)
+    print_to_console(msg)
+    return success
+
+
+def cmd_vfs_init(cmd_args):
+    if vfs.init_fs(vfs.default_vfs_path):
+        print_to_console("VFS успешно инициализирована заново.")
+        update_header()
+        return True
+    
+    print_to_console(
+        f"Ошибка: не удалось найти базовый файл VFS "
+        f"({vfs.default_vfs_path})"
+    )
+    return False
+
+
+def cmd_exit(cmd_args):
+    print_to_console("Завершение работы эмулятора")
+    root.after(500, root.destroy)
+    return True
+
 
 def execute_command(full_command):
     if not full_command:
@@ -151,45 +191,19 @@ def execute_command(full_command):
     command = parts[0]
     cmd_args = parts[1:] if len(parts) > 1 else []
 
-    if command == "ls":
-        result = vfs.ls(cmd_args[0] if cmd_args else None)
-        if result:
-            print_to_console(result)
-        return True
+    commands_map = {
+        "ls": cmd_ls,
+        "cd": cmd_cd,
+        "cat": cmd_cat,
+        "vfs-init": cmd_vfs_init,
+        "exit": cmd_exit,
+    }
 
-    elif command == "cd":
-        success, msg = vfs.cd(cmd_args[0] if cmd_args else "")
-        if not success:
-            print_to_console(msg)
-            return False
-        update_header()
-        return True
+    if command in commands_map:
+        return commands_map[command](cmd_args)
 
-    elif command == "cat":
-        success, msg = vfs.cat(cmd_args[0] if cmd_args else None)
-        print_to_console(msg)
-        return success
-
-    elif command == "vfs-init":
-        if vfs.init_fs(vfs.default_vfs_path):
-            print_to_console("VFS успешно инициализирована заново.")
-            update_header()
-            return True
-        else:
-            print_to_console(
-                f"Ошибка: не удалось найти базовый файл VFS "
-                f"({vfs.default_vfs_path})"
-            )
-            return False
-
-    elif command == "exit":
-        print_to_console("Завершение работы эмулятора")
-        root.after(500, root.destroy)
-        return True
-
-    else:
-        print_to_console(f"Эмулятор: команда '{command}' не найдена")
-        return False
+    print_to_console(f"Эмулятор: команда '{command}' не найдена")
+    return False
 
 
 def process_command(event=None):
