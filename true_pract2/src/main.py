@@ -2,13 +2,13 @@ import sys
 import argparse
 import urllib.parse
 from pathlib import Path
-from src.apk_parser import (
+from true_pract2.src.apk_parser import (
     read_local_index,
     download_index,
     extract_index_text,
     parse_dependencies,
 )
-from src.graph_builder import (
+from true_pract2.src.graph_builder import (
     load_test_graph_from_txt,
     build_transitive_graph,
     draw_and_save_graph,

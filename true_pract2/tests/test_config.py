@@ -1,5 +1,5 @@
 import unittest
-from src.main import (
+from true_pract2.src.main import (
     validate_package_name,
     validate_output_file,
     validate_test_mode,
