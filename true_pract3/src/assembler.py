@@ -74,3 +74,30 @@ def format_ir_output(ir: list[dict[str, Any]]) -> str:
         fields_str = ", ".join(f"{k}={v}" for k, v in cmd["fields"].items())
         lines.append(f"Cmd {idx + 1} ({cmd['op']}, {cmd['size']}b): {fields_str}")
     return "\n".join(lines)
+
+FIELD_SHIFTS = {"A": 0, "B": 5, "C": 8, "D": 13}
+
+
+def pack_command(cmd: dict[str, Any]) -> bytes:
+    op = cmd["op"]
+    fields = cmd["fields"]
+    
+    value = 0
+    for field_name, field_value in fields.items():
+        shift = FIELD_SHIFTS[field_name]
+        value |= (field_value << shift)
+        
+    size = COMMAND_SIZES[op]
+    return value.to_bytes(size, byteorder="little")
+
+
+def generate_machine_code(ir: list[dict[str, Any]]) -> bytes:
+    machine_code = bytearray()
+    for cmd in ir:
+        machine_code.extend(pack_command(cmd))
+    return bytes(machine_code)
+
+
+def format_bytes_output(machine_code: bytes) -> str:
+    hex_bytes = [f"0x{b:02X}" for b in machine_code]
+    return ", ".join(hex_bytes)
