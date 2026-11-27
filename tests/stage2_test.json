@@ -1,0 +1,15 @@
+[
+  {"op": "load_const", "A": 26, "B": 0, "C": 493},
+  {"op": "load_const", "A": 26, "B": 3, "C": 10},
+  {"op": "load_const", "A": 26, "B": 5, "C": 20},
+  {"op": "load_const", "A": 26, "B": 1, "C": 100},
+
+  {"op": "write_mem",  "A": 19, "B": 1, "C": 3},
+  {"op": "load_const", "A": 26, "B": 1, "C": 200},
+  {"op": "write_mem",  "A": 19, "B": 1, "C": 3},
+
+  {"op": "read_mem",   "A": 28, "B": 4, "C": 1, "D": 3},
+  {"op": "load_const", "A": 26, "B": 6, "C": 15},
+  {"op": "load_const", "A": 26, "B": 7, "C": 255},
+  {"op": "and_op",     "A": 1,  "B": 6, "C": 7}
+]
